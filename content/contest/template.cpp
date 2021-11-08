@@ -1,14 +1,9 @@
 #include <bits/stdc++.h>
+#define int long long
 using namespace std;
 
-#define rep(i, a, b) for(int i = a; i < (b); ++i)
-#define all(x) begin(x), end(x)
-#define sz(x) (int)(x).size()
-typedef long long ll;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
+signed main(void)
+{
+	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 
-int main() {
-	cin.tie(0)->sync_with_stdio(0);
-	cin.exceptions(cin.failbit);
 }
