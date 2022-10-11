@@ -1,0 +1,15 @@
+# Fdb version 3
+["pdflatex"] 1665475438 "kactl.tex" "kactl.pdf" "kactl" 1665475438
+  "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1650183167 3524 cb3e574dea2d1052e39280babc910dc8 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/cm/cmr9.tfm" 1650183167 1292 6b21b9c2c7bebb38aa2273f7ca0fb3af ""
+  "/usr/share/texmf-dist/tex/latex/base/exscale.sty" 1650183167 2581 12a83a02567771ef5d33f928a69ec41c ""
+  "/usr/share/texmf-dist/tex/latex/extsizes/extreport.cls" 1650183167 23786 cbd79291aa0922c48a73753b97cabb5f ""
+  "/usr/share/texmf-dist/tex/latex/extsizes/size9.clo" 1650183167 6172 b9daf86befd6903b2699dddbd6fb97c1 ""
+  "/usr/share/texmf-dist/web2c/texmf.cnf" 1650183167 39911 2da6c67557ec033436fe5418a70a8a61 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1660297912 2927664 ad7395b0e06f577eca33c822b2bfeae6 ""
+  "kactl.aux" 1665475438 32 3985256e7290058c681f74d7a3565a19 ""
+  "kactl.tex" 1665475438 928 8fb9f767ce2298cbeaa47424805ab879 ""
+  "kactlpkg.sty" 0 -1 0 ""
+  (generated)
+  "kactl.log"
+  "kactl.pdf"
