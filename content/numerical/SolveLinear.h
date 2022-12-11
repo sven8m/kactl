@@ -21,8 +21,8 @@ int solveLinear(vector<vd> &A, vd &b, vd &x) {
 
   rep(i, 0, n) {
     double v, bv = 0;
-    rep(r, i, n) rep(c, i, m) if ((v = fabs(A[r][c])) > bv) br = r, bc = c,
-                                                            bv = v;
+    rep(r, i, n) rep(c, i, m) if ((v = fabs(A[r][c])) > bv)
+     br = r, bc = c, bv = v;
     if (bv <= eps) {
       rep(j, i, n) if (fabs(b[j]) > eps) return -1;
       break;
