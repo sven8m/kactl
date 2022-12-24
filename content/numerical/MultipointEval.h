@@ -18,11 +18,11 @@ vector<int> mulT(vector<int> &a, vector<int> b) {
   return {prd.begin() + n - 1, prd.end()};
 }
 
-vector<Mint> multiPoint(vector<int> pol, vector<int> pts) {
+vector<int> multiPoint(vector<int> pol, vector<int> pts) {
   if (pts.empty()) return {};
   int n = max(pol.size(), pts.size());
   vector<vector<Mint>> seg(4 * n);
-  vector<Mint> sol(pts.size()); pts.resize(n);
+  vector<int> sol(pts.size()); pts.resize(n);
   auto build = [&](auto rec, int node, int deb, int fin) -> void {
     if (deb + 1 == fin) {
       seg[node] = {1, -pts[deb]};
