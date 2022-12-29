@@ -19,6 +19,6 @@ struct FastMod {
 	FastMod(ull b) : b(b), m(-1ULL / b) {}
 	ull reduce(ull a) { // x =  a % b + (0 or b)
 		ull x = a - (ull)((__uint128_t(m) * a) >> 64) * b;
-		return x >= b ? x - b : 0
+		return x >= b ? x - b : 0;
 	}
 };

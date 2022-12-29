@@ -3,10 +3,12 @@
  * Date: 2018-02-14
  * License: CC0
  * Source: Chinese material
- * Description: Generates the $k$'th term of an $n$-order
+ * Description: Generates a vector P of size n given
  * linear recurrence $S[i] = \sum_j S[i-j-1]tr[j]$,
- * given $S[0 \ldots \ge n-1]$ and $tr[0 \ldots n-1]$.
- * Faster than matrix multiplication.
+ * such that if $S_0, ..., S_{n-1}$ are fixed,
+ * $S_k = \sum P_i S_i$
+ * Faster than matrix multiplication. Can be faster by replacing 
+ * combine by (a * b) % tr (fft)
  * Useful together with Berlekamp--Massey.
  * Usage: linearRec({0, 1}, {1, 1}, k) // k'th Fibonacci number
  * Time: O(n^2 \log k)
@@ -17,7 +19,7 @@
 const ll mod = 5; /** exclude-line */
 
 typedef vector<ll> Poly;
-ll linearRec(Poly S, Poly tr, ll k) {
+Poly linearRec(Poly tr, ll k) {
 	int n = sz(tr);
 
 	auto combine = [&](Poly a, Poly b) {
@@ -37,8 +39,5 @@ ll linearRec(Poly S, Poly tr, ll k) {
 		if (k % 2) pol = combine(pol, e);
 		e = combine(e, e);
 	}
-
-	ll res = 0;
-	rep(i,0,n) res = (res + pol[i + 1] * S[i]) % mod;
-	return res;
+	return {pol.begin() + 1, pol.end()};
 }
