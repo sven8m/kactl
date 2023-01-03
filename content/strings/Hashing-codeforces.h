@@ -18,4 +18,4 @@ ull modmul(ull a, ull b) {
   ret = (ret & mod) + (ret >> 61);
   return ret - 1;
 }
-const int base = randint(1e11, 3e11); // pick random baseb
+const int base = randint(1e11, 3e11); // pick random base
