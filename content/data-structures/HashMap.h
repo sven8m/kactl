@@ -15,7 +15,14 @@ struct chash { // large odd number for C
 	const uint64_t C = ll(4e18 * acos(0)) | 71;
 	ll operator()(ll x) const { return __builtin_bswap64(x*C); }
 };
-__gnu_pbds::gp_hash_table<ll,int,chash> h({},{},{},{},{1<<16});
+// To use most b i t s rather than j u s t the lowest ones :
+struct chash { // large odd number for C
+  const uint64_t C = (int)(4e18 * acos(0)) | 71; 
+  int operator()(int x) const { return __builtin_bswap64(x * C); }
+};
+
+using hash_table = __gnu_pbds::gp_hash_table<int, int, chash>;
+using hash_set = __gnu_pbds::gp_hash_table<int, __gnu_pbds::null_type, chash>;
 
 /** For CodeForces, or other places where hacking might be a problem:
 
