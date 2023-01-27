@@ -18,14 +18,15 @@
 \usepackage{paralist}                   % For compact enumerations
 \usepackage[inline]{enumitem}           % For horizontal lists
 \usepackage[parfill]{parskip}           % For compact enumerations
-\usepackage[dvipsnames]{xcolor}
+\usepackage[usenames, dvipsnames]{xcolor}
 \usepackage[normalem]{ulem}
+\usepackage{lastpage}
 \usepackage[hidelinks]{hyperref}        % For clickable table of contents
 \usepackage{multirow}
 \usepackage{xtab}
 \usepackage{tabularx}
+\usepackage{comment}
 \usepackage{pifont}
-
 % Config commands
 \newcommand{\subtitle}[1]{
 	\def\@subtitle{#1}
@@ -44,12 +45,27 @@
 	\def\@unilogo{#3}
 }
 
+\begin{comment}
 \newcommand{\enablecolors}{
 	\lstset{basicstyle=\footnotesize\ttfamily\color{mygreen}}
 	\lstset{commentstyle=\color{darkgray}\normalfont\itshape}
 	\lstset{keywordstyle=\color{myblue}}
+	\lstset{morekeywordstyle=\color{myblue}}
+
 	\lstset{identifierstyle=\color{black}}
 }
+\end{comment}
+\lstset{
+    language=C++,
+    morekeywords={ll, lli, llu, pii, piii, vi, vii, viii, vvi, vvii, vviii, pt, FOR, FORU, FORD, rep}\ttfamily,
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    commentstyle=\color{dkgreen}\ttfamily,
+    morecomment=[l][\color{magenta}]{\#}
+}
+
+
 
 % Some default config
 \subtitle{{\tiny new}KACTL}
@@ -86,7 +102,7 @@
 \headheight 25pt
 \lhead{\@unishort}
 \chead{\immediate\write18{python2 content/tex/preprocessor.py --print-header "\splitbotmarks\hdrmark|\botmarks\hdrmark" -o \@builddir/header2.tmp}\immediate\input{\@builddir/header2.tmp}}
-\rhead{\thepage{} of~ 24}
+\rhead{\thepage{} of~ \pageref{LastPage}}
 %\lhead{}\chead{\thepage}\rhead{}
 \lfoot{}\cfoot{}\rfoot{}
 \fancyheadoffset{0pt}
