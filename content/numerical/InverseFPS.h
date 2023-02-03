@@ -9,19 +9,19 @@
 
 #pragma once
 vector<int> inversePowerSeries(vector<int> p, int n) {
-  vector<int> inv(1, modpow(p[0], MOD - 2));
+  vector<int> inv(1, modpow(p[0], mod - 2));
   for (int curSz = 2; curSz < 2 * n; curSz *= 2) {
     vector<int> cur(2 * curSz);
     for (int i = 0; i < curSz; ++i)
       cur[i] = i < (int)p.size() ? p[i] : 0;
     inv.resize(2 * curSz);
     ntt(inv), ntt(cur);
-    int invSz = modpow(2 * curSz, MOD - 2);
+    int invSz = modpow(2 * curSz, mod - 2); 
     for (int i = 0; i < 2 * curSz; ++i)
-      inv[i] = inv[i] * (2 - cur[i] * inv[i] % MOD + MOD) % MOD * invSz % MOD;
+      inv[i] = inv[i] * (2 - cur[i] * inv[i] % mod + mod) % mod * invSz % mod;
     reverse(inv.begin() + 1, inv.begin() + 2 * curSz);
     ntt(inv);
-    fill(inv.begin() + curSz, inv.begin() + 2 * curSz, 0);
+    fill(inv.begin() + curSz, inv.begin() + 2 * curSz, 0); 
   }
-  return {inv.begin(), inv.begin() + n};
+  return {inv.begin(), inv.begin() + n}; 
 }
