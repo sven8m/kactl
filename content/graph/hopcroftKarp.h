@@ -14,48 +14,41 @@
  */
 #pragma once
 
-bool dfs(int a, int L, vector<vi>& g, vi& btoa, vi& A, vi& B) {
-	if (A[a] != L) return 0;
-	A[a] = -1;
-	for (int b : g[a]) if (B[b] == L + 1) {
-		B[b] = 0;
-		if (btoa[b] == -1 || dfs(btoa[b], L + 1, g, btoa, A, B))
-			return btoa[b] = a, 1;
-	}
-	return 0;
-}
+struct HopcroftKarp {
+  vector<int> g, l, r;
+  int ans;
+  HopcroftKarp(int n, int m, const vector<pair<int, int>> &e)
+      : g(e.size()), l(n, -1), r(m, -1), ans(0) {
+    std::vector<int> deg(n + 1);
+    for (auto &[x, y] : e) deg[x]++;
+    for (int i = 1; i <= n; i++) deg[i] += deg[i - 1];
+    for (auto &[x, y] : e) g[--deg[x]] = y;
 
-int hopcroftKarp(vector<vi>& g, vi& btoa) {
-	int res = 0;
-	vi A(g.size()), B(btoa.size()), cur, next;
-	for (;;) {
-		fill(all(A), 0);
-		fill(all(B), 0);
-		/// Find the starting nodes for BFS (i.e. layer 0).
-		cur.clear();
-		for (int a : btoa) if(a != -1) A[a] = -1;
-		rep(a,0,sz(g)) if(A[a] == 0) cur.push_back(a);
-		/// Find all layers using bfs.
-		for (int lay = 1;; lay++) {
-			bool islast = 0;
-			next.clear();
-			for (int a : cur) for (int b : g[a]) {
-				if (btoa[b] == -1) {
-					B[b] = lay;
-					islast = 1;
-				}
-				else if (btoa[b] != a && !B[b]) {
-					B[b] = lay;
-					next.push_back(btoa[b]);
-				}
-			}
-			if (islast) break;
-			if (next.empty()) return res;
-			for (int a : next) A[a] = lay;
-			cur.swap(next);
-		}
-		/// Use DFS to scan for augmenting paths.
-		rep(a,0,sz(g))
-			res += dfs(a, 0, g, btoa, A, B);
-	}
-}
+    std::vector<int> a, p, q(n);
+    for (;;) {
+      a.assign(n, -1), p.assign(n, -1);
+      int t = 0;
+      for (int i = 0; i < n; i++)
+        if (l[i] == -1) q[t++] = a[i] = p[i] = i;
+
+      bool match = false;
+      for (int i = 0; i < t; i++) {
+        int x = q[i];
+        if (~l[a[x]]) continue;
+        for (int j = deg[x]; j < deg[x + 1]; j++) {
+          int y = g[j];
+          if (r[y] == -1) {
+            while (~y) r[y] = x, swap(l[x], y), x = p[x];
+            match = true, ans++;
+            break;
+          }
+
+          if (p[r[y]] == -1)
+            q[t++] = y = r[y], p[y] = x, a[y] = a[x];
+        }
+      }
+
+      if (!match) break;
+    }
+  }
+};

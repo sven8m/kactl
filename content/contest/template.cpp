@@ -2,21 +2,22 @@
 #define int long long
 using namespace std;
 
-namespace std {
-template <typename T> ostream &operator<<(ostream &out, const vector<T> &vec) {
-  out << "[";
-  for (int i = 0; i < (int)vec.size(); ++i) {
-    out << vec[i];
-    if (i + 1 < (int)vec.size())
-      out << ", ";
+string to_string(string s) { return s; }
+template <typename T> string to_string(T v) {
+  bool first = true;
+  string res = "[";
+  for (const auto &x : v) {
+    if (!first) res += ", ";
+    first = false;
+    res += to_string(x);
   }
-  return out << "]";
+  res += "]";
+  return res;
 }
-} // namespace std
 
 void dbg_out() { cout << endl; }
 template <typename Head, typename... Tail> void dbg_out(Head H, Tail... T) {
-  cout << ' ' << H;
+  cout << ' ' << to_string(H);
   dbg_out(T...);
 }
 
@@ -25,6 +26,7 @@ template <typename Head, typename... Tail> void dbg_out(Head H, Tail... T) {
 #else
 #define dbg(...)
 #endif
+
 
 signed main(void) {
   ios_base::sync_with_stdio(false);

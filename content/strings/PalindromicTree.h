@@ -49,21 +49,23 @@ struct PalindromicTree {
   bool add(char c) {
     int let = normalize(c);
     int pos = s.size();
-    s.pb(c);
+    s.push_back(c);
     suff = suffix(suff, pos);
 
-    int &x = t[suff].next[let];
-    bool newNode = (x == -1);
+    bool newNode = t[suff].next[let] == -1; 
     if (newNode) {
-      x = t.size();
+      int x = t.size();
+      t[suff].next[let] = x;
       t.emplace_back();
       t[x].len = t[suff].len + 2;
       t[x].link = suff == 0 ? 1 : t[suffix(t[suff].link, pos)].next[let];
       t[x].sufCount = 1 + t[t[x].link].sufCount;
-    }
+    }   
+    int x = t[suff].next[let];
     ++t[x].occAsMax;
     suff = x;
     return newNode;
+
   }
 
   // occ[i] = number of occurences of the node i in the string
