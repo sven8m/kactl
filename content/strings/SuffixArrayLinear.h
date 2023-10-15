@@ -3,7 +3,8 @@
  * Date: 2014-04-04
  * License: CC0
  * Source: folklore
- * Description: Suffix Array en temps lineaire. À intégrer dans structure non linéaire pour obtenir LCP
+ * Description: Suffix Array en temps lineaire. À intégrer dans structure non linéaire pour obtenir LCP. 
+ * Il suffit d'insérer un s.size() au début du vecteur de retour
  * Time: Linear
  * Status: unknown
  */
