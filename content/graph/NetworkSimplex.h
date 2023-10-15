@@ -10,7 +10,8 @@
  * To solve flow with demands on vertices, add an extra node and use INF cost again
  * to enforce circulation. Dual values obtained are the same as if you didn't do transformation
  * Time: Should be fast $O(M^2)$ worst case, add random shuffle of edges (permute indices)
- * if time might be an issue. Should be faster than MCMF
+ * if time might be an issue. Should be faster than MCMF.
+ * DANGER : dual variables can cause problems if not in same connected component.
  */
 #pragma once
 
@@ -99,6 +100,9 @@ template <class Flow, class Cost> struct NetworkSimplex {
     for (int i = 2, pre = ncnt; i != pre; i = i == ncnt ? 2 : i + 1)
       if (edges[i].cap and edges[i].cost < phi(edges[i ^ 1].to) - phi(edges[i].to))
         pushFlow(pre = i, cost);
+    ++ti;
+    for (int u = 0; u < (int)dual.size(); ++u)
+      phi(u);
     return cost;
   }
 };
