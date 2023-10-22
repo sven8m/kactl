@@ -4,6 +4,7 @@
  * License: CC0
  * Source: own work
  * Description: Container where you can add lines of the form kx+b, and query maximum values at points x.
+ * Can also undo last add. If you don't need it, delete lines with (D)
  * Lines must be added by increasing slope
  * Time: O(\log N)
  * Status: stress-tested
@@ -12,20 +13,20 @@
 struct cht {
   vector<double> from;
   vector<pair<int, int>> arr;
-  vector<pair<int, int>> rem;
-  vector<double> remf;
-  vector<int> cnt;
+  vector<pair<int, int>> rem; // (D)
+  vector<double> remf; // (D)
+  vector<int> cnt; // (D)
   int fst = 0;
 
   // increasing k
   void add(int k, int b) {
     double x = -1e18;
-    cnt.push_back(0);
+    cnt.push_back(0); // (D)
     while (arr.size() && (x = (double)(b - arr.back().second) /
                               (arr.back().first - k)) < from.back()) {
-      ++cnt.back();
-      rem.push_back(arr.back());
-      remf.push_back(from.back());
+      ++cnt.back(); // (D)
+      rem.push_back(arr.back()); // (D)
+      remf.push_back(from.back()); // (D)
       arr.pop_back();
       from.pop_back();
     }
@@ -49,6 +50,7 @@ struct cht {
     return arr[fst].first * x + arr[fst].second;
   }
 
+  // (D)
   void undo() {
     arr.pop_back();
     from.pop_back();
