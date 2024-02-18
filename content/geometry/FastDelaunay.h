@@ -85,18 +85,18 @@ bool delaunay_triangulation(const vector<Point<T>> &a, F1 process_outer_face,
     if (B->o == rb->o)
       rb = base;
 #define valid(e) (a[e->d()].cross(a[base->d()], a[base->o]) > 0)
-#define DEL(e, init, dir)                                                      \
-  quad_edge *e = init->dir;                                                    \
-  if (valid(e))                                                                \
-    while (circular(a[e->dir->d()], a[base->d()], a[base->o], a[e->d()])) {    \
-      quad_edge *t = e->dir;                                                   \
-      quad_edge::splice(e, e->oprev());                                        \
-      quad_edge::splice(e->sym(), e->sym()->oprev());                          \
-      delete e->rot->rot->rot;                                                 \
-      delete e->rot->rot;                                                      \
-      delete e->rot;                                                           \
-      delete e;                                                                \
-      e = t;                                                                   \
+#define DEL(e, init, dir) \
+  quad_edge *e = init->dir; \
+  if (valid(e)) \
+    while (circular(a[e->dir->d()], a[base->d()], a[base->o], a[e->d()])) { \
+      quad_edge *t = e->dir; \
+      quad_edge::splice(e, e->oprev());\
+      quad_edge::splice(e->sym(), e->sym()->oprev()); \
+      delete e->rot->rot->rot; \
+      delete e->rot->rot; \
+      delete e->rot; \
+      delete e; \
+      e = t; \
     }
     while (true) {
       DEL(LC, base->sym(), onext);
@@ -118,17 +118,17 @@ bool delaunay_triangulation(const vector<Point<T>> &a, F1 process_outer_face,
   vector<int> face;
   face.reserve(n);
   bool colinear = false;
-#define ADD                                                                    \
-  {                                                                            \
-    quad_edge *c = e;                                                          \
-    face.clear();                                                              \
-    do {                                                                       \
-      c->mark = true;                                                          \
-      face.push_back(c->o);                                                    \
-      q.push_back(c->sym());                                                   \
-      rem.push_back(c);                                                        \
-      c = c->lnext();                                                          \
-    } while (c != e);                                                          \
+#define ADD \
+  { \
+    quad_edge *c = e; \
+    face.clear(); \
+    do {  \
+      c->mark = true; \
+      face.push_back(c->o);  \
+      q.push_back(c->sym()); \
+      rem.push_back(c); \
+      c = c->lnext();  \
+    } while (c != e); \
   }
   ADD;
   process_outer_face(face);

@@ -16,34 +16,34 @@ struct DominatorTree {
   vi dfn, pre, pt, semi, dsu, idom, best;
   vvi dom;
 
-  DominatorTree(const vvi &g, lli source)
+  DominatorTree(const vvi &g, ll source)
       : n(g.size()), dfn(n, -1), pre(n), pt(n), semi(n), dsu(n), idom(n),
         best(n), dom(n) {
     vvi ginv(n);
-    FOR(i, n) {
-      for (lli j : g[i])
-        ginv[j].pb(i);
+    rep(i, 0, n) {
+      for (ll j : g[i])
+        ginv[j].push_back(i);
       dsu[i] = best[i] = semi[i] = i;
     }
     dfs(source, g);
     vvi mydom(n);
     tarjan(ginv, mydom);
-    FOR(i, sz) for (lli d : mydom[i]) dom[pt[i]].pb(pt[d]);
+    rep(i, 0, sz) for (ll d : mydom[i]) dom[pt[i]].push_back(pt[d]);
   }
 
-  lli get(lli x) {
+  ll get(ll x) {
     if (x == dsu[x])
       return x;
-    lli y = get(dsu[x]);
+    ll y = get(dsu[x]);
     if (semi[best[x]] > semi[best[dsu[x]]])
       best[x] = best[dsu[x]];
     return dsu[x] = y;
   }
 
-  void dfs(lli u, const vvi &succ) {
+  void dfs(ll u, const vvi &succ) {
     dfn[u] = sz;
     pt[sz++] = u;
-    for (lli v : succ[u])
+    for (ll v : succ[u])
       if (dfn[v] < 0) {
         dfs(v, succ);
         pre[dfn[v]] = dfn[u];
@@ -51,18 +51,18 @@ struct DominatorTree {
   }
 
   void tarjan(const vvi &pred, vvi &dom) {
-    FORD(j, 1, sz) {
-      lli u = pt[j];
-      for (lli tv : pred[u])
+    for (int j = sz - 1; j >= 1; --j) {
+      ll u = pt[j];
+      for (ll tv : pred[u])
         if (dfn[tv] >= 0) {
-          lli v = dfn[tv];
+          ll v = dfn[tv];
           get(v);
           if (semi[best[v]] < semi[j])
             semi[j] = semi[best[v]];
         }
       dom[semi[j]].push_back(j);
-      lli x = dsu[j] = pre[j];
-      for (lli z : dom[x]) {
+      ll x = dsu[j] = pre[j];
+      for (ll z : dom[x]) {
         get(z);
         if (semi[best[z]] < x)
           idom[z] = best[z];
@@ -71,7 +71,7 @@ struct DominatorTree {
       }
       dom[x].clear();
     }
-    FORU(i, 1, sz) {
+    rep(i, 1, sz) {
       if (semi[i] != idom[i])
         idom[i] = idom[idom[i]];
       dom[idom[i]].push_back(i);
