@@ -31,7 +31,6 @@ template <typename Head, typename... Tail> void dbg_out(Head H, Tail... T) {
 #define dbg(...)
 #endif
 
-
 signed main(void) {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
