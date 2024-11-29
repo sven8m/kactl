@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 #define int long long
 #define ll long long
-#define sz(x) x.size()
-#define all(x) x.begin(),x.end()
-#define rep(i,a,b) for(int i=a;i<b;i++)
+#define sz(x) (int)(x).size()
+#define all(x) begin(x),end(x)
+#define rep(i,a,b) for(int i=(a);i<(b);i++)
 using namespace std;
 
 string to_string(string s) { return s; }
